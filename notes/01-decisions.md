@@ -404,3 +404,43 @@ STILL OPEN:
   button reused `.under`, so that rule hid it at exactly the moment it was
   needed, since it only appears after earlier steps HAVE folded. Now scoped to
   #step-vin.
+
+## 2026-09-19: first feedback from the owner, on a phone
+
+Verbatim points and what was done:
+
+- "QAG logo bigger" -> mobile logo 3.25rem to 4.25rem. It had been shrunk to
+  make room for social icons that were later dropped.
+- "it took me a minute to find more info. Clicking the logo to open up the other
+  information is not obvious enough" and "the menu that pops up on the bottom
+  doesn't pop up unless I click ? or click the logo" -> the bottom bar is now
+  PERMANENT on phones instead of appearing only at the end of a page. Hiding it
+  made the site look like it had no navigation at all. The logo toggle stays on
+  desktop, where hovering a mark is a reasonable thing to discover.
+- "it is difficult to click contact us, about us is in the way" -> a real
+  collision: the fixed "About us." corner and the Contact button were both
+  pinned bottom right. With the bar permanent, about already has a place in it,
+  so the floating copy is hidden on phones.
+- "keep the 3D car from disappearing after 1st piece of glass clicked" -> already
+  fixed earlier the same day; he was testing the previous build.
+- "something to specify whether they want a rock chip repair or a full
+  replacement" -> added, see below.
+
+### The chip question
+
+Asked only when the windshield is among the chosen glass, and it must be
+answered before "That it?" will advance. Sized the way a customer can actually
+check rather than in millimetres: "smaller than a quarter" / "a crack, or bigger
+than that" / "I am not sure".
+
+It rewrites the work line rather than adding to it. A chip is REPAIRED, not
+replaced, and telling someone with a chip that they need a windshield
+replacement quotes them the wrong job at several times the price. Unsure becomes
+"Windshield: repair or replace, we will check", which is the honest answer.
+
+NOTE a tension in the instructions, resolved rather than ignored: the client said
+earlier that "a window with a chip needs to be replaced just like a broken one,
+should be the same workflow". That was about not building a separate chip PATH,
+and this is not one. It is one extra question inside the same flow. The owner,
+who does the work, asked for it directly, and the research backs him: repairs are
+attempted far more often than replacements.
