@@ -444,3 +444,20 @@ should be the same workflow". That was about not building a separate chip PATH,
 and this is not one. It is one extra question inside the same flow. The owner,
 who does the work, asked for it directly, and the research backs him: repairs are
 attempted far more often than replacements.
+- 2026-09-19 - On phones the category strip is lifted OUT of the layout. It was
+  growing the header sideways, which on 375px meant five words wrapping onto
+  several lines and pushing the whole page down, so opening the menu made the
+  site look like it had grown a limb. It now hangs under the header as one row
+  that cannot wrap, scrolls sideways if it has to, and overlays the page.
+  Measured: header 108px and content top 108px, unchanged, open or closed.
+  The closed state is opacity 0 with translateY(-12px), so removing the class
+  plays the same transition backwards and the row lifts away upwards on its own.
+- 2026-09-19 - The logo was wired TWICE. It carries href="#quote" so it was
+  picked up by the generic panel-link handler as well as by its own toggle: one
+  tap ran both, so the menu opened and was closed again in the same gesture
+  while the page navigated. The panel loop now skips it, and the logo handler
+  navigates on pointer devices and toggles on touch.
+- 2026-09-19 - TESTING NOTE. CSS transitions report playState "running" but
+  never advance while the browser pane is not compositing, so opacity reads as
+  its start value forever and a working transition looks broken. Verify end
+  states with transitions bypassed rather than chasing a phantom.
