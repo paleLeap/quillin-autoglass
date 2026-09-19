@@ -387,3 +387,20 @@ STILL OPEN:
 - Where the finished request lands for Quillin, and where photographs go.
 - Cache busting on the script tags. A change to app.js is not picked up by a
   plain reload, which cost real debugging time at least twice.
+- 2026-09-19 - Picking glass no longer advances the flow. Client direction, and
+  correct: tapping a window on the car is an act of POINTING, not an act of
+  finishing, and moving the page the moment someone points takes the car out
+  from under them while they are still deciding whether there is a second break.
+  A "That it?" button under the picker does the advancing instead. It appears
+  once there is something to move on from and retires once they have moved on.
+- 2026-09-19 - Second half of the same fix, and the one that mattered more: the
+  damage and photo steps are now HELD OPEN until "That it?" is pressed. The fold
+  rule ("answered, and something later is open") folded the damage step the
+  instant a pane was picked, because the photo step is its peer and is revealed
+  at the same time. The car vanished on first selection, which is the same
+  complaint as auto-advancing arriving by a different route.
+- 2026-09-19 - Trap worth remembering: `.flow:has(.step.is-folded) .under` was
+  written to retire the "Contact us!" button once the VIN step folds. The new
+  button reused `.under`, so that rule hid it at exactly the moment it was
+  needed, since it only appears after earlier steps HAVE folded. Now scoped to
+  #step-vin.
