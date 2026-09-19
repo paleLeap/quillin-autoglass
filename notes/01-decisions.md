@@ -474,3 +474,12 @@ attempted far more often than replacements.
   app.js or landing.js cost real debugging time on three separate occasions. The
   change was on disk, the page ran the old code, and the symptom looked like a
   logic bug every time. Run ./bump.sh after editing css or js, before testing.
+- 2026-09-19 - The menu scrim BLURS rather than blacks out. It was rgba .74 and
+  the client's note was that it went way too dark. A heavy tint just turns the
+  page off, which loses the sense that the work is still sitting there waiting.
+  Now .38 tint with backdrop-filter blur(7px) saturate(.85): the page they were
+  on visibly recedes and softens instead of disappearing.
+  The mark and the words take the foreground to match: links at full --ink and
+  1.375rem with a soft text shadow, logo to scale(1.12) with a drop shadow, so
+  they read cleanly against whatever is blurred behind them. The current section
+  stays orange.
