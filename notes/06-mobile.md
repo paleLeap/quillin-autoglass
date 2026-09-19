@@ -104,3 +104,75 @@ every text input is at least 16px so iOS does not zoom the page on focus.
 
 - Real device testing. Everything above is emulated.
 - The 3D picker on a low end Android has not been measured for frame rate.
+
+## 2026-09-19: the mobile pass FAILED on a real device
+
+Client verdict after testing on a phone: fine as a website, awful as a phone
+experience. Believe this over anything measured below it.
+
+### Why it passed testing and still failed
+
+Everything in the table above was measured in a 375x812 emulator with touch
+emulation. Every number was correct and the whole thing still feels bad, because
+none of those numbers describe what using a phone is actually like:
+
+- an emulator has a mouse pointer pretending to be a finger, so it never
+  produces a diagonal drag, a lazy swipe or a fat tap
+- it has no soft keyboard, so nothing ever covers half the screen
+- it has no thumb, so reach is never wrong
+- it has no scroll momentum, so nothing ever overshoots
+- it never fights the browser's own chrome
+
+Tap target sizes and overflow checks are necessary and nowhere near sufficient.
+A real device, or nothing.
+
+### The structural problem, stated plainly
+
+The flow is a DESKTOP PATTERN wearing mobile CSS. It is one long page that grows
+downward as questions are answered, and folding earlier steps makes it shorter
+without making it a phone experience. On a phone that means:
+
+- the page height changes under the thumb on every answer, so the customer's
+  place on screen moves while they are reading
+- the picker step alone runs about 1800px, so the car and the list of panels
+  cannot be on screen at once and picking is done half blind
+- `reveal()` scrolls when the next step is off screen, which on a phone is
+  almost always, so the page yanks after nearly every interaction
+- fixed furniture sits at the bottom, which is where the thumb and the browser
+  toolbar already are
+- focusing the VIN field raises a keyboard over the field it is focusing
+
+A phone wants ONE STEP PER SCREEN: a fixed header, one question, a persistent
+next and back, no page growth, no hunting. That is a different presentation
+layer, not a stylesheet.
+
+### The 3D picker is the worst of it
+
+`touch-action: pan-y` was the wrong compromise, chosen because it was the
+cheapest. It splits gestures by axis, so the customer is in a constant argument
+with the page: a drag meant to rotate that wanders vertically scrolls instead,
+and a swipe meant to scroll that wanders horizontally spins the car. Nobody
+swipes on a pure axis.
+
+Options the next session should weigh, none yet tried:
+1. Put the picker in a full screen sheet with its own close control. Inside the
+   sheet it owns every gesture and there is nothing to scroll, so the conflict
+   disappears entirely.
+2. Drop orbit on phones. Give preset views instead, front / driver / passenger /
+   rear, as four buttons. Most customers do not want to fly a camera, they want
+   to point at the window that is broken.
+3. Drop the 3D on phones entirely and use a flat labelled diagram. The panel
+   data is already right; the 3D is one way of showing it, not the only one.
+
+Option 2 is probably where to start: it keeps what the picker is for and removes
+the interaction that is failing.
+
+### For the next session
+
+Do not begin by tuning CSS. Begin by deciding whether the phone gets the same
+presentation as the desktop at all. The flow logic, the VIN decode, the panel
+resolver, the archetypes and the request record are all sound and presentation
+agnostic; every one of them can drive a different phone front end without being
+touched.
+
+Test on a real device after every meaningful change, not at the end.

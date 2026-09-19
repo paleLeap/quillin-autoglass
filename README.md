@@ -43,7 +43,10 @@ about and contact, plus a help page.
 
 Delivery is NOT wired. Nothing is sent anywhere yet.
 
-Next: mobile.
+Next: mobile, again. The first mobile pass passed emulator testing and failed
+on a real phone. See notes/06-mobile.md; the short version is that the flow is a
+desktop pattern wearing mobile CSS, and the phone needs one step per screen
+rather than one long page.
 
 See notes/01-decisions.md for the full record and notes/05-test-vins.md for
 verified VINs to test with.
